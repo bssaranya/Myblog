@@ -1,0 +1,11 @@
+GET http://localhost:5000/
+Content-Type: application/json
+
+###Postmethod
+POST  http://localhost:5000/
+Content-Type: application/json
+
+{
+    "name":"ammu"
+}
+
