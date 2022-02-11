@@ -87,6 +87,7 @@ app.post('/api/add',(req,res) =>{
 
 // Signup
 app.post('/api/signup', async (req, res) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     try {
         const { username, email, password, repeatpassword } = req.body;
 
@@ -96,6 +97,8 @@ app.post('/api/signup', async (req, res) => {
             return res.status(400).json({ msg: "The password needs to be at least 5 characters long." });
         if (password !== repeatpassword)
             return res.status(400).json({ msg: "Enter the same password twice for verification." });
+        if (!regex.test(email))
+            return res.status(400).json({ msg: "Email not in correct format" });
         const existingEmail = await SignupInfo.findOne({ email: email });
         if (existingEmail)
             return res.status(400).json({ msg: "An account with this email already exists." });
